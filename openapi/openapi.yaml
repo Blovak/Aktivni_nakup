@@ -1,0 +1,169 @@
+openapi: 3.1.0
+info:
+  title: Aktivní nákup API
+  version: 0.1.0
+  description: Návrhová kostra verzovaného API; implementace začne po schválení migrace.
+servers:
+  - url: /api/v1
+security:
+  - bearerAuth: []
+paths:
+  /health:
+    get:
+      operationId: getHealth
+      security: []
+      responses:
+        "200":
+          description: Aplikace odpovídá bez zveřejnění konfiguračních detailů.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Health"
+  /households:
+    post:
+      operationId: createHousehold
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/MutationEnvelope"
+                - type: object
+                  required: [name]
+                  properties:
+                    name: { type: string, minLength: 1, maxLength: 100 }
+      responses:
+        "201": { description: Domácnost vytvořena }
+        default: { $ref: "#/components/responses/Error" }
+  /households/{householdId}/lists:
+    parameters:
+      - $ref: "#/components/parameters/HouseholdId"
+    get:
+      operationId: listShoppingLists
+      responses:
+        "200": { description: Seznamy dostupné přihlášenému členovi }
+        default: { $ref: "#/components/responses/Error" }
+    post:
+      operationId: createShoppingList
+      responses:
+        "201": { description: Seznam vytvořen }
+        default: { $ref: "#/components/responses/Error" }
+  /lists/{listId}:
+    get:
+      operationId: getShoppingListChanges
+      parameters:
+        - $ref: "#/components/parameters/ListId"
+        - name: since_revision
+          in: query
+          schema: { type: integer, minimum: 0 }
+      responses:
+        "200": { description: Aktuální projekce nebo změny od revize }
+        default: { $ref: "#/components/responses/Error" }
+  /lists/{listId}/items:
+    post:
+      operationId: createShoppingItem
+      parameters:
+        - $ref: "#/components/parameters/ListId"
+      responses:
+        "201": { description: Položka vytvořena právě jednou }
+        "409": { $ref: "#/components/responses/Conflict" }
+        default: { $ref: "#/components/responses/Error" }
+  /items/{itemId}:
+    patch:
+      operationId: updateShoppingItem
+      parameters:
+        - $ref: "#/components/parameters/ItemId"
+      responses:
+        "200": { description: Položka změněna }
+        "409": { $ref: "#/components/responses/Conflict" }
+        default: { $ref: "#/components/responses/Error" }
+    delete:
+      operationId: removeShoppingItem
+      parameters:
+        - $ref: "#/components/parameters/ItemId"
+      responses:
+        "200": { description: Vytvořen tombstone }
+        "409": { $ref: "#/components/responses/Conflict" }
+        default: { $ref: "#/components/responses/Error" }
+  /sync:
+    post:
+      operationId: synchronize
+      description: Odešle omezenou dávku operací a vrátí změny od revize.
+      responses:
+        "200": { description: Výsledek po jednotlivých operacích a serverové změny }
+        default: { $ref: "#/components/responses/Error" }
+  /stores/nearby:
+    post:
+      operationId: findNearbyStores
+      description: POST brání běžnému logování přesné polohy v query stringu.
+      responses:
+        "200": { description: Seřazené kandidátní pobočky s hrubou vzdáleností }
+        default: { $ref: "#/components/responses/Error" }
+  /lists/{listId}/sort-preview:
+    post:
+      operationId: previewStoreSort
+      parameters:
+        - $ref: "#/components/parameters/ListId"
+      responses:
+        "200": { description: Pořadí se zdrojem a hrubou jistotou }
+        default: { $ref: "#/components/responses/Error" }
+  /shopping-sessions:
+    post:
+      operationId: startShoppingSession
+      responses:
+        "201": { description: Nákupní relace zahájena }
+        default: { $ref: "#/components/responses/Error" }
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  parameters:
+    HouseholdId:
+      name: householdId
+      in: path
+      required: true
+      schema: { type: string, format: uuid }
+    ListId:
+      name: listId
+      in: path
+      required: true
+      schema: { type: string, format: uuid }
+    ItemId:
+      name: itemId
+      in: path
+      required: true
+      schema: { type: string, format: uuid }
+  schemas:
+    MutationEnvelope:
+      type: object
+      required: [operation_id]
+      properties:
+        operation_id: { type: string, format: uuid }
+        expected_version: { type: integer, minimum: 1 }
+    Health:
+      type: object
+      required: [status]
+      properties:
+        status: { type: string, enum: [ok] }
+    ApiError:
+      type: object
+      required: [code, message, request_id]
+      properties:
+        code: { type: string }
+        message: { type: string }
+        details: { type: object, additionalProperties: true }
+        request_id: { type: string, format: uuid }
+  responses:
+    Error:
+      description: Stabilní strojově čitelná chyba
+      content:
+        application/json:
+          schema: { $ref: "#/components/schemas/ApiError" }
+    Conflict:
+      description: Konflikt očekávané a aktuální verze
+      content:
+        application/json:
+          schema: { $ref: "#/components/schemas/ApiError" }
