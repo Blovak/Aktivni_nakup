@@ -91,7 +91,8 @@ paths:
       operationId: synchronize
       description: Odešle omezenou dávku operací a vrátí změny od revize.
       responses:
-        "200": { description: Výsledek po jednotlivých operacích a serverové změny }
+        "200":
+          { description: Výsledek po jednotlivých operacích a serverové změny }
         default: { $ref: "#/components/responses/Error" }
   /stores/nearby:
     post:

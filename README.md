@@ -6,9 +6,9 @@ pobočky. Základní práce musí fungovat bez GPS, senzorů i dočasně bez int
 
 ## Stav projektu
 
-Projekt je v etapě 0: jsou zaznamenána produktová a architektonická rozhodnutí,
-návrh datového modelu, bezpečnostní a privacy baseline, OpenAPI kostra a plán
-založení aplikace. Spustitelná aplikace ani databázové migrace zatím neexistují.
+Etapa 0 je dokončená. Etapa 1 má hotový spustitelný Next.js skeleton, připnuté
+závislosti, statické kontroly a první jednotkové testy domény. Připojení k
+Supabase a databázové migrace zatím neexistují.
 
 ## Navržený technologický základ
 
@@ -19,10 +19,10 @@ založení aplikace. Spustitelná aplikace ani databázové migrace zatím neexi
 - Zod pro runtime validaci a sdílené kontrakty
 - Vitest a Playwright pro testy
 
-Před instalací budou konkrétní kompatibilní verze uzamčeny lockfilem. K
-27. 10. 2026 byly ověřeny aktuální verze Next.js 16.4.3, React 19.3.1,
-`@supabase/supabase-js` 2.118.0, Dexie 4.4.7, Zod 4.6.7, Vitest 5.0.5 a
-Playwright 1.64.1. Supabase klient vyžaduje Node.js 22 nebo novější.
+Projekt nyní používá Node.js 24.14.1, pnpm 12.15.0, Next.js 16.4.3,
+React 19.3.0, TypeScript 5.9.3 a Vitest 5.0.5. Přesné verze jsou uzamčené v
+lockfilu. Verze budoucích závislostí Supabase, Dexie, Zod a Playwright se znovu
+ověří a připnou až v kroku, který je skutečně zavede.
 
 ## Databáze zdarma
 
@@ -40,15 +40,14 @@ Architektura zachovává PostgreSQL migrace a doménovou logiku mimo React i
 provider-specific API, aby bylo možné přejít na vlastní PostgreSQL nebo placený
 provoz bez přepisování produktu.
 
-## Předpokládaný lokální start (etapa 1)
+## Lokální start
 
-Příkazy níže jsou cílové a začnou fungovat po založení aplikace v etapě 1:
+Projekt obsahuje konfiguraci `mise`, která připne správnou verzi Node.js:
 
 ```bash
+mise install
 corepack enable
 pnpm install --frozen-lockfile
-cp .env.example .env.local
-pnpm supabase:start
 pnpm dev
 ```
 
@@ -62,8 +61,8 @@ pnpm test
 pnpm build
 ```
 
-Lokální Supabase bude vyžadovat Docker. Cloudový Free projekt nebude podmínkou
-pro běh jednotkových testů.
+Lokální Supabase bude po zavedení v kroku 1.4 vyžadovat Docker. Cloudový Free
+projekt nebude podmínkou pro běh jednotkových testů.
 
 ## Dokumentace
 
@@ -79,7 +78,7 @@ pro běh jednotkových testů.
 ## Navržená struktura
 
 ```text
-app/                    Next.js routy, stránky a route handlers
+src/app/                Next.js routy, stránky a route handlers
 src/components/         prezentační komponenty
 src/domain/             doménové typy a čistá pravidla
 src/application/        use cases a porty

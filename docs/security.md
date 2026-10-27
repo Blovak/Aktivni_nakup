@@ -11,17 +11,17 @@
 
 ## Hrozby a opatření
 
-| Hrozba | Primární opatření | Povinný test |
-| --- | --- | --- |
-| Převzetí pozvánky | pouze hash tokenu, expirace, limit použití, revokace | expirovaný a opakovaný token selže |
-| Cizí domácnost | RLS odvozené z `auth.uid()` a členství | izolace dvou domácností |
-| Únik polohy | POST, redakce logů, souřadnice neukládat | log neobsahuje lat/lon |
-| XSS | žádné raw HTML, CSP, validace délek | škodlivý label se zobrazí jako text |
-| Offline zneužití | verze, limity dávky, autorizace každé operace | cizí a přerostlá dávka selže |
-| Replay mutace | unikátní `operation_id` vázané na uživatele | duplicita má jeden účinek |
-| Konflikt verzí | `expected_version`, odpověď 409, ruční oprava | souběžná změna se neztratí tiše |
-| Falešná pozorování | aktivní relace, rate limit, diverzita, robustní agregace | anomálie zásadně neposune odhad |
-| Zneužití administrace | oddělená role, server-only operace, audit | běžný člen import neprovede |
+| Hrozba                | Primární opatření                                        | Povinný test                        |
+| --------------------- | -------------------------------------------------------- | ----------------------------------- |
+| Převzetí pozvánky     | pouze hash tokenu, expirace, limit použití, revokace     | expirovaný a opakovaný token selže  |
+| Cizí domácnost        | RLS odvozené z `auth.uid()` a členství                   | izolace dvou domácností             |
+| Únik polohy           | POST, redakce logů, souřadnice neukládat                 | log neobsahuje lat/lon              |
+| XSS                   | žádné raw HTML, CSP, validace délek                      | škodlivý label se zobrazí jako text |
+| Offline zneužití      | verze, limity dávky, autorizace každé operace            | cizí a přerostlá dávka selže        |
+| Replay mutace         | unikátní `operation_id` vázané na uživatele              | duplicita má jeden účinek           |
+| Konflikt verzí        | `expected_version`, odpověď 409, ruční oprava            | souběžná změna se neztratí tiše     |
+| Falešná pozorování    | aktivní relace, rate limit, diverzita, robustní agregace | anomálie zásadně neposune odhad     |
+| Zneužití administrace | oddělená role, server-only operace, audit                | běžný člen import neprovede         |
 
 ## HTTP ochrany
 

@@ -3,7 +3,7 @@
 Každý úkol má skončit samostatně ověřitelným stavem. Vytvoření vzdáleného
 Supabase projektu není podmínkou prvních úkolů.
 
-## 1.1 Založení workspace
+## 1.1 Založení workspace — dokončeno
 
 - Založit Next.js aplikaci s App Routerem, `src/` a strict TypeScriptem.
 - Nastavit pnpm a uzamknout přesné kompatibilní verze v lockfile.
@@ -11,7 +11,7 @@ Supabase projektu není podmínkou prvních úkolů.
 
 Akceptace: čistá instalace projde a výchozí stránka se produkčně sestaví.
 
-## 1.2 Statické kontroly a test runner
+## 1.2 Statické kontroly a test runner — dokončeno
 
 - Nastavit ESLint, Prettier, Vitest a Testing Library.
 - Přidat skripty `format:check`, `lint`, `typecheck`, `test` a `build`.
@@ -61,5 +61,5 @@ Akceptace: nový checkout projde CI pouze podle instrukcí v README.
 
 1.1 -> 1.2 -> 1.3 -> 1.4 -> 1.5 -> 1.6 -> 1.7.
 
-Nejmenší další krok je 1.1 a 1.2: vytvořit lokálně sestavitelný skeleton bez
-napojení na vzdálenou databázi.
+Nejmenší další krok je 1.3: zavést runtime validaci veřejné a serverové
+konfigurace bez připojování ke vzdálené databázi.

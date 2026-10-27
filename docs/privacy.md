@@ -21,15 +21,15 @@ zpracují podle schválené retenční a výmazové politiky.
 
 ## Návrh retence k produktovému schválení
 
-| Data | Návrh | Důvod |
-| --- | ---: | --- |
-| Nevyužitá pozvánka | expirace nejvýše 7 dní, metadata 30 dní | bezpečnost a audit |
-| Idempotency záznam | 30 dní | offline opakování |
-| Tombstone položky | 30 dní | dorovnání dlouho offline klienta |
-| Surové minimalizované pozorování | 180 dní | agregace a detekce anomálií |
-| Audit významných změn | 365 dní | vyšetření zneužití |
-| Aplikační logy | 30 dní | provozní diagnostika |
-| Odvozené agregace | do nahrazení novou verzí modelu | produktová funkce |
+| Data                             |                                   Návrh | Důvod                            |
+| -------------------------------- | --------------------------------------: | -------------------------------- |
+| Nevyužitá pozvánka               | expirace nejvýše 7 dní, metadata 30 dní | bezpečnost a audit               |
+| Idempotency záznam               |                                  30 dní | offline opakování                |
+| Tombstone položky                |                                  30 dní | dorovnání dlouho offline klienta |
+| Surové minimalizované pozorování |                                 180 dní | agregace a detekce anomálií      |
+| Audit významných změn            |                                 365 dní | vyšetření zneužití               |
+| Aplikační logy                   |                                  30 dní | provozní diagnostika             |
+| Odvozené agregace                |         do nahrazení novou verzí modelu | produktová funkce                |
 
 Lhůty jsou návrh, nikoli právní závěr. Před produkčním provozem je musí ověřit
 kvalifikovaná osoba a musí vzniknout ověřitelný proces exportu a smazání.

@@ -1,0 +1,85 @@
+.page {
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: 24px 16px;
+  background:
+    radial-gradient(
+      circle at top right,
+      rgb(233 183 92 / 35%),
+      transparent 42%
+    ),
+    linear-gradient(160deg, #f8f5ec 0%, #eaf3ed 100%);
+}
+
+.card {
+  width: min(100%, 560px);
+  padding: clamp(24px, 8vw, 48px);
+  border: 1px solid rgb(23 79 58 / 16%);
+  border-radius: 28px;
+  background: rgb(255 255 255 / 88%);
+  box-shadow: 0 24px 70px rgb(22 57 43 / 12%);
+}
+
+.eyebrow {
+  margin-bottom: 12px;
+  color: #9a4d1c;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.card h1 {
+  max-width: 12ch;
+  color: #173d2f;
+  font-size: clamp(2.2rem, 10vw, 4rem);
+  line-height: 0.98;
+  letter-spacing: -0.055em;
+}
+
+.lead {
+  margin-top: 24px;
+  color: #355548;
+  font-size: 1.05rem;
+  line-height: 1.65;
+}
+
+.checklist {
+  display: grid;
+  gap: 12px;
+  margin-top: 28px;
+  padding: 0;
+  list-style: none;
+}
+
+.checklist li {
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  gap: 10px;
+  align-items: start;
+  color: #203d32;
+  line-height: 1.45;
+}
+
+.checklist li::before {
+  content: "✓";
+  display: grid;
+  width: 24px;
+  height: 24px;
+  place-items: center;
+  border-radius: 50%;
+  color: #fff;
+  background: #207557;
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.note {
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid rgb(23 79 58 / 12%);
+  color: #5a6d64;
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
