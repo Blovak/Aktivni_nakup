@@ -7,8 +7,9 @@ pobočky. Základní práce musí fungovat bez GPS, senzorů i dočasně bez int
 ## Stav projektu
 
 Etapa 0 je dokončená. Etapa 1 má hotový spustitelný Next.js skeleton, připnuté
-závislosti, statické kontroly a první jednotkové testy domény. Připojení k
-Supabase a databázové migrace zatím neexistují.
+závislosti, statické kontroly, první jednotkové testy domény a validaci
+konfigurace prostředí. Repozitář je propojený s cloudovým Supabase projektem a
+migrace `0001_core` je nasazená. Všech 17 veřejných tabulek má zapnuté RLS.
 
 ## Navržený technologický základ
 
@@ -20,13 +21,14 @@ Supabase a databázové migrace zatím neexistují.
 - Vitest a Playwright pro testy
 
 Projekt nyní používá Node.js 24.14.1, pnpm 12.15.0, Next.js 16.4.3,
-React 19.3.0, TypeScript 5.9.3 a Vitest 5.0.5. Přesné verze jsou uzamčené v
-lockfilu. Verze budoucích závislostí Supabase, Dexie, Zod a Playwright se znovu
-ověří a připnou až v kroku, který je skutečně zavede.
+React 19.3.0, TypeScript 5.9.3, Vitest 5.0.5, Zod 4.6.7 a Supabase CLI 2.122.0.
+Přesné verze jsou uzamčené v lockfilu. Verze budoucích závislostí Supabase JS,
+Dexie a Playwright se znovu ověří a připnou až v kroku, který je skutečně zavede.
 
-## Databáze zdarma
+## Cloudová databáze a hosting
 
-Pro rodinnou betu použijeme Supabase Free. Aktuální bezplatný tarif zahrnuje
+Pro rodinnou betu použijeme Supabase Free provozovaný v cloudu. Aktuální
+bezplatný tarif zahrnuje
 500 MB databáze, 50 000 MAU, 2 miliony realtime zpráv měsíčně a 200 špičkových
 realtime spojení. Bezplatný projekt se po týdnu neaktivity pozastaví a nemá
 automatické databázové zálohy, proto nejde bez dalších opatření o vhodný základ
@@ -39,6 +41,11 @@ Zdroje limitů: [Supabase Billing](https://supabase.com/docs/guides/platform/bil
 Architektura zachovává PostgreSQL migrace a doménovou logiku mimo React i
 provider-specific API, aby bylo možné přejít na vlastní PostgreSQL nebo placený
 provoz bez přepisování produktu.
+
+Webová aplikace bude nasazená na Vercelu a dostupná z internetu. Notebook
+vývojáře není součástí produkčního běhu. Supabase CLI se používá pouze k aplikaci
+verzovaných migrací do cloudového projektu; Docker není pro běžný vývoj ani
+provoz projektu vyžadován.
 
 ## Lokální start
 
@@ -61,8 +68,25 @@ pnpm test
 pnpm build
 ```
 
-Lokální Supabase bude po zavedení v kroku 1.4 vyžadovat Docker. Cloudový Free
-projekt nebude podmínkou pro běh jednotkových testů.
+Cloudový Supabase projekt není podmínkou pro běh jednotkových testů. Pro aplikaci
+migrací je potřeba jednorázově propojit repozitář s projektem pomocí
+`pnpm supabase link --project-ref <project-ref>` a poté spustit
+`pnpm supabase db push`.
+
+### Konfigurace prostředí
+
+Pro lokální vývoj zkopírujte `.env.example` do `.env.local` a nahraďte pouze
+zástupné hodnoty údaji svého Supabase projektu. Soubor `.env.local` je ignorován
+Gitem a nesmí se commitovat.
+
+- `NEXT_PUBLIC_SUPABASE_URL` a `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` jsou
+  veřejné hodnoty dostupné klientovi.
+- `SUPABASE_SERVICE_ROLE_KEY` a `DATABASE_URL` jsou serverová tajemství a smějí
+  se načítat pouze v serverovém kódu.
+
+Konfiguraci lze ověřit samostatně příkazem `pnpm env:check`. Produkční sestavení
+ji kontroluje automaticky před spuštěním Next.js buildu. Chybová hlášení uvádějí
+jen názvy chybných proměnných, nikdy jejich hodnoty.
 
 ## Dokumentace
 

@@ -1,0 +1,1 @@
+-- Seed data will be introduced with isolated database tests in stage 1.5.

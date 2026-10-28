@@ -43,9 +43,10 @@ následně se zahodí. Ukládá se pouze vybrané `store_id`, čas a zdroj volby
 
 ## Cílové nasazení
 
-- Web/PWA: poskytovatel podporující Next.js; konkrétní volba není v etapě 0 nutná.
-- Data/Auth/Realtime: Supabase Free pro vývoj a omezenou rodinnou betu.
-- Lokální vývoj: Supabase CLI a Docker.
+- Web/PWA: Vercel, veřejně dostupné internetové nasazení.
+- Data/Auth/Realtime: cloudový Supabase Free pro vývoj a omezenou rodinnou betu.
+- Migrace: projektově připnuté Supabase CLI aplikující SQL přímo do propojeného
+  cloudového projektu; lokální Docker stack není součástí pracovního postupu.
 - CI: GitHub Actions bez produkčních tajemství.
 
 ## Provider nezávislost

@@ -19,7 +19,7 @@ Akceptace: čistá instalace projde a výchozí stránka se produkčně sestaví
 
 Akceptace: všech pět příkazů projde lokálně bez varování.
 
-## 1.3 Konfigurace prostředí
+## 1.3 Konfigurace prostředí — dokončeno
 
 - Přidat `.env.example` s falešnými hodnotami.
 - Validovat odděleně veřejné a serverové proměnné pomocí Zodu.
@@ -27,13 +27,15 @@ Akceptace: všech pět příkazů projde lokálně bez varování.
 
 Akceptace: aplikace selže čitelně při chybné konfiguraci a tajemství není v bundle.
 
-## 1.4 Lokální Supabase
+## 1.4 Cloudový Supabase — dokončeno
 
-- Inicializovat Supabase CLI konfiguraci a dokumentovat Docker prerequisite.
+- Inicializovat a připnout Supabase CLI bez lokálního Docker stacku.
+- Propojit repozitář s cloudovým Supabase Free projektem.
 - Převést schválený návrh `0001_core` na SQL migraci.
 - Zapnout RLS na každé klientsky dosažitelné tabulce.
 
-Akceptace: čisté `supabase db reset` aplikuje migraci bez ručního zásahu.
+Akceptace: `supabase db push` aplikuje migraci do propojeného cloudového projektu
+bez ručních změn v Dashboardu.
 
 ## 1.5 Databázové testy
 
@@ -61,5 +63,5 @@ Akceptace: nový checkout projde CI pouze podle instrukcí v README.
 
 1.1 -> 1.2 -> 1.3 -> 1.4 -> 1.5 -> 1.6 -> 1.7.
 
-Nejmenší další krok je 1.3: zavést runtime validaci veřejné a serverové
-konfigurace bez připojování ke vzdálené databázi.
+Nejmenší další krok je 1.5: přidat databázové testy integritních omezení a
+izolace dvou domácností pomocí RLS.

@@ -1,7 +1,8 @@
 # Návrh první databázové migrace
 
-Tento dokument je konzistenčně zkontrolovaný logický návrh. Spustitelná migrace
-vznikne až v etapě 1 spolu s lokálním Supabase a databázovými testy.
+Tento dokument popisuje logický návrh nasazené migrace `0001_core`. Migrace je
+aplikovaná v cloudovém Supabase projektu; všech 17 tabulek ve schématu `public`
+má zapnuté RLS. Databázové a RLS testy jsou následujícím krokem etapy 1.
 
 ## Rozsah migrace `0001_core`
 
@@ -68,7 +69,7 @@ výsledek nebo aktuální reprezentaci, ale neprovede vedlejší účinek znovu.
 - Katalog a aktivní pobočky jsou pro přihlášené čitelné; zápis je administrativní.
 - Audit a surová pozorování nejsou přímo čitelné běžným klientem.
 
-## Otevřené body před SQL
+## Navazující otevřené body
 
 1. Potvrdit, zda delta synchronizace použije jednu revizi na seznam, nebo globální
    sekvenci domácnosti. Doporučení: revize na seznam, protože klient synchronizuje
