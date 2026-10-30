@@ -11,6 +11,8 @@ závislosti, statické kontroly, první jednotkové testy domény a validaci
 konfigurace prostředí. Repozitář je propojený s cloudovým Supabase projektem a
 migrace `0001_core` je nasazená. Všech 17 veřejných tabulek má zapnuté RLS;
 integritní omezení a výchozí deny-by-default přístup pokrývají pgTAP testy.
+PWA shell obsahuje manifest, offline fallback a řízenou aktualizaci service
+workeru bez cacheování API odpovědí.
 
 ## Navržený technologický základ
 
@@ -76,6 +78,10 @@ jen syntetická data a každou sadu na konci vrátí. Pro aplikaci migrací je p
 jednorázově propojit repozitář s projektem pomocí
 `pnpm supabase link --project-ref <project-ref>` a poté spustit
 `pnpm supabase db push`.
+
+Service worker se registruje jen v produkčním sestavení. Offline shell proto
+ověřujte přes `pnpm build` a `pnpm start`, ne přes vývojový server. Při změně
+cache strategie nebo souborů shellu zvyšte `CACHE_VERSION` v `public/sw.js`.
 
 ### Konfigurace prostředí
 

@@ -44,7 +44,7 @@ bez ručních změn v Dashboardu.
 
 Akceptace: anonymní i cizí uživatel nedostanou data druhé domácnosti.
 
-## 1.6 PWA shell
+## 1.6 PWA shell — dokončeno
 
 - Přidat manifest, bezpečné placeholder ikony a minimální service worker.
 - Cacheovat jen aplikační shell a verzované statické assety, ne API odpovědi.
@@ -63,5 +63,5 @@ Akceptace: nový checkout projde CI pouze podle instrukcí v README.
 
 1.1 -> 1.2 -> 1.3 -> 1.4 -> 1.5 -> 1.6 -> 1.7.
 
-Nejmenší další krok je 1.5: přidat databázové testy integritních omezení a
-izolace dvou domácností pomocí RLS.
+Nejmenší další krok je 1.7: přidat reprodukovatelné GitHub Actions kontroly pro
+nový checkout bez produkčních tajemství.

@@ -41,6 +41,15 @@ Poslední ručně potvrzená pobočka se otevře ihned. GPS se vyžádá jednor�
 po gestu uživatele. Souřadnice a přesnost se použijí k nalezení kandidátů a
 následně se zahodí. Ukládá se pouze vybrané `store_id`, čas a zdroj volby.
 
+### PWA shell a aktualizace
+
+Service worker přednačte pouze `/`, offline stránku, manifest, ikony a hashované
+soubory `/_next/static/`, které najde v HTML shellu. Požadavky `/api` a ostatní
+aplikační data neukládá; jejich offline cache a outbox patří do samostatné
+IndexedDB vrstvy. Nový worker čeká na potvrzení uživatele, teprve potom aktivuje
+novou verzi a aplikace se znovu načte. Při každé změně cache strategie nebo
+shellu se zvýší `CACHE_VERSION` v `public/sw.js`.
+
 ## Cílové nasazení
 
 - Web/PWA: Vercel, veřejně dostupné internetové nasazení.

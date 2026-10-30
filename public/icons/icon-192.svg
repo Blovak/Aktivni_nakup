@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" viewBox="0 0 192 192" role="img" aria-labelledby="title">
+  <title id="title">Aktivní nákup</title>
+  <rect width="192" height="192" rx="44" fill="#174f3a"/>
+  <path d="M55 72h82l-8 75H63L55 72Z" fill="#f8f5ec"/>
+  <path d="M72 78V65c0-15 10-25 24-25s24 10 24 25v13" fill="none" stroke="#f4c56f" stroke-width="12" stroke-linecap="round"/>
+  <path d="m78 108 13 13 26-30" fill="none" stroke="#207557" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
