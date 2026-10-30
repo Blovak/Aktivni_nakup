@@ -9,7 +9,8 @@ pobočky. Základní práce musí fungovat bez GPS, senzorů i dočasně bez int
 Etapa 0 je dokončená. Etapa 1 má hotový spustitelný Next.js skeleton, připnuté
 závislosti, statické kontroly, první jednotkové testy domény a validaci
 konfigurace prostředí. Repozitář je propojený s cloudovým Supabase projektem a
-migrace `0001_core` je nasazená. Všech 17 veřejných tabulek má zapnuté RLS.
+migrace `0001_core` je nasazená. Všech 17 veřejných tabulek má zapnuté RLS;
+integritní omezení a výchozí deny-by-default přístup pokrývají pgTAP testy.
 
 ## Navržený technologický základ
 
@@ -65,11 +66,14 @@ pnpm format:check
 pnpm lint
 pnpm typecheck
 pnpm test
+pnpm test:db
 pnpm build
 ```
 
-Cloudový Supabase projekt není podmínkou pro běh jednotkových testů. Pro aplikaci
-migrací je potřeba jednorázově propojit repozitář s projektem pomocí
+Cloudový Supabase projekt není podmínkou pro běh jednotkových testů. Příkaz
+`pnpm test:db` spouští transakční pgTAP testy proti propojenému projektu; používá
+jen syntetická data a každou sadu na konci vrátí. Pro aplikaci migrací je potřeba
+jednorázově propojit repozitář s projektem pomocí
 `pnpm supabase link --project-ref <project-ref>` a poté spustit
 `pnpm supabase db push`.
 

@@ -37,7 +37,7 @@ Akceptace: aplikace selže čitelně při chybné konfiguraci a tajemství není
 Akceptace: `supabase db push` aplikuje migraci do propojeného cloudového projektu
 bez ručních změn v Dashboardu.
 
-## 1.5 Databázové testy
+## 1.5 Databázové testy — dokončeno
 
 - Přidat pgTAP testy integritních omezení a výchozího deny-by-default RLS.
 - Vytvořit testovací identity a dvě domácnosti bez produkčních osobních dat.

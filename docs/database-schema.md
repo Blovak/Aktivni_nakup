@@ -2,7 +2,8 @@
 
 Tento dokument popisuje logický návrh nasazené migrace `0001_core`. Migrace je
 aplikovaná v cloudovém Supabase projektu; všech 17 tabulek ve schématu `public`
-má zapnuté RLS. Databázové a RLS testy jsou následujícím krokem etapy 1.
+má zapnuté RLS. Databázová omezení a výchozí deny-by-default RLS pokrývají
+transakční pgTAP testy v `supabase/tests/database`.
 
 ## Rozsah migrace `0001_core`
 
@@ -75,5 +76,6 @@ výsledek nebo aktuální reprezentaci, ale neprovede vedlejší účinek znovu.
    sekvenci domácnosti. Doporučení: revize na seznam, protože klient synchronizuje
    právě otevřený seznam.
 2. Upřesnit návratovou hodnotu idempotentních operací bez ukládání payloadu.
-3. Vybrat databázový test runner pro RLS; preferovaný je pgTAP v Supabase CLI.
+3. Při přidávání prvních povolujících RLS politik rozšířit pgTAP testy o
+   očekávané operace vlastníka a člena domácnosti.
 4. Potvrdit retenční lhůty z `docs/privacy.md`.
